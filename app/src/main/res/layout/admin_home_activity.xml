@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/admin_suspend"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="163dp"
+        android:layout_height="53dp"
+        android:text="Welcome to the Admin Control Panel. What would You Like to do."
+        tools:layout_editor_absoluteX="124dp"
+        tools:layout_editor_absoluteY="225dp" />
+
+    <Button
+        android:id="@+id/admin_create"
+        android:layout_width="172dp"
+        android:layout_height="51dp"
+        android:text="Create Account"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="340dp" />
+
+    <Button
+        android:id="@+id/admin_change"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change Credentials"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="433dp" />
+
+    <Button
+        android:id="@+id/button11"
+        android:layout_width="169dp"
+        android:layout_height="51dp"
+        android:text="Suspend Account"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="520dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>
