@@ -13,7 +13,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
 
     private Context context;
     private static final String DATABASE_NAME = "ppmsDB.db";
-    private static final int DATABASE_VERSION = 10;
+    private static final int DATABASE_VERSION = 13;
 
     //consumer table
     private static final String TABLE_NAME_CONSUMER = "Consumer";
