@@ -14,6 +14,7 @@ import com.example.test2.ui.Home
 import android.content.Context
 import android.content.SharedPreferences
 import com.example.test2.ui.AdminLogin
+import com.example.test2.ui.Database_Files.LocalDatabase
 import com.example.test2.ui.KPLC_Home
 import com.example.test2.ui.KPLC_SignIn
 import com.example.test2.ui.Register
@@ -63,19 +64,17 @@ class MainActivity : ComponentActivity() {
                         val username = inputText.text.toString()
                         val password = inputText2.text.toString()
 
-                        if (username == "Aaron" && password == "Aaron") {
+                        val DB = LocalDatabase(this)
+                        val loginSuccessful = DB.loginUser(username, password)
 
+                        if (loginSuccessful) {
                             Toast.makeText(this, "Logged in Successfully", Toast.LENGTH_SHORT).show()
 
                             val intent = Intent(this, Home::class.java)
                             startActivity(intent)
-
                         } else {
-
                             Toast.makeText(this, "Invalid Credentials", Toast.LENGTH_SHORT).show()
                         }
-
-
 
                    }
 

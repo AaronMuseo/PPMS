@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.test2.R
+import com.example.test2.ui.Database_Files.LocalDatabase
 import com.example.test2.ui.ui.theme.Test2Theme
 
 class AdminSuspend : ComponentActivity() {
@@ -48,7 +50,16 @@ class AdminSuspend : ComponentActivity() {
 
                     change.setOnClickListener(){
 
-                        //create function to delete accounts
+                        val DB = LocalDatabase(this)
+                        val usernameToDelete = usr.text.toString()
+                        val customerIdToDelete = ID.text.toString().toIntOrNull()
+
+                        if (customerIdToDelete != null) {
+                            DB.deleteConsumer(usernameToDelete, customerIdToDelete)
+                        } else {
+                            // Handle the case where the entered customer ID is not a valid integer
+                            Toast.makeText(this, "Invalid Customer ID", Toast.LENGTH_SHORT).show()
+                        }
 
                     }
 

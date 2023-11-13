@@ -2,6 +2,7 @@ package com.example.test2.ui.Database_Files;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
@@ -12,7 +13,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
 
     private Context context;
     private static final String DATABASE_NAME = "ppmsDB.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 10;
 
     //consumer table
     private static final String TABLE_NAME_CONSUMER = "Consumer";
@@ -139,4 +140,87 @@ public class LocalDatabase extends SQLiteOpenHelper {
         }
 
     }
+
+    public void updateConsumer(String oldUsername, String oldPassword, String newUsername, String newPassword) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // Check if old username and password match
+        boolean credentialsMatch = checkCredentials(db, oldUsername, oldPassword);
+
+        if (credentialsMatch) {
+            ContentValues cv = new ContentValues();
+            cv.put(COLUMN_CONSUMER_USERNAME, newUsername);
+            cv.put(COLUMN_CONSUMER_PASSWORD, newPassword);
+
+            long result = db.update(TABLE_NAME_CONSUMER, cv, COLUMN_CONSUMER_USERNAME + " = ? AND " + COLUMN_CONSUMER_PASSWORD + " = ?", new String[]{oldUsername, oldPassword});
+
+            if (result > 0) {
+                Toast.makeText(context, "Update Successful", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(context, "Update Failed", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(context, "Old username or password is incorrect", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private boolean checkCredentials(SQLiteDatabase db, String username, String password) {
+        String selection = "Username = ? AND Password = ?";
+        String[] selectionArgs = {username, password};
+        Cursor cursor = db.query(TABLE_NAME_CONSUMER, null, selection, selectionArgs, null, null, null);
+
+        boolean credentialsMatch = cursor.getCount() > 0;
+
+        cursor.close();
+        return credentialsMatch;
+
+
+    }
+
+    public void deleteConsumer(String username, int customerId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // Check if the user with the given username and customer ID exists
+        boolean userExists = checkUserExists(db, username, customerId);
+
+        if (userExists) {
+            int result = db.delete(TABLE_NAME_CONSUMER, COLUMN_CONSUMER_USERNAME + " = ? AND " + COLUMN_CONSUMER_ID + " = ?",
+                    new String[]{username, String.valueOf(customerId)});
+
+            if (result > 0) {
+                Toast.makeText(context, "User deleted successfully", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(context, "Failed to delete user", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(context, "User not found", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private boolean checkUserExists(SQLiteDatabase db, String username, int customerId) {
+        String selection = COLUMN_CONSUMER_USERNAME + " = ? AND " + COLUMN_CONSUMER_ID + " = ?";
+        String[] selectionArgs = {username, String.valueOf(customerId)};
+        Cursor cursor = db.query(TABLE_NAME_CONSUMER, null, selection, selectionArgs, null, null, null);
+
+        boolean userExists = cursor.getCount() > 0;
+
+        cursor.close();
+        return userExists;
+    }
+
+    public boolean loginUser(String username, String password) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {COLUMN_CONSUMER_ID};
+        String selection = COLUMN_CONSUMER_USERNAME + " = ? AND " + COLUMN_CONSUMER_PASSWORD + " = ?";
+        String[] selectionArgs = {username, password};
+        Cursor cursor = db.query(TABLE_NAME_CONSUMER, columns, selection, selectionArgs, null, null, null);
+
+        boolean loginSuccessful = cursor.getCount() > 0;
+
+        cursor.close();
+        return loginSuccessful;
+    }
+
+
 }
+
