@@ -12,10 +12,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.test2.MainActivity
 import com.example.test2.R
 import com.example.test2.ui.ui.theme.Test2Theme
 
-class Admin_Home : ComponentActivity() {
+class KPLC_Home : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -26,30 +27,41 @@ class Admin_Home : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
 
-                    setContentView(R.layout.admin_home_activity)
+                    setContentView(R.layout.kplc_home_activity)
 
-                    val create = findViewById<Button>(R.id.admin_create)
-                    val change = findViewById<Button>(R.id.admin_change)
-                    val suspend = findViewById<Button>(R.id.admin_suspend)
+                    val info = findViewById<Button>(R.id.kplc_info)
+                    val usage = findViewById<Button>(R.id.kplc_usage)
+                    val logout = findViewById<Button>(R.id.kplc_logout1)
+                    val request = findViewById<Button>(R.id.kplc_home_request)
 
-                    create.setOnClickListener(){
-                        val intent = Intent(this, Admin_Create::class.java)
+                    info.setOnClickListener(){
+                        val intent = Intent(this, KPLC_Info::class.java)
                         startActivity(intent)
                     }
 
-                    change.setOnClickListener(){
-                        val intent = Intent(this,Admin_Change::class.java)
+                    usage.setOnClickListener(){
+                        val intent = Intent(this, KPLC_Usage::class.java)
                         startActivity(intent)
                     }
 
-                    suspend.setOnClickListener(){
-                        val intent = Intent(this, AdminSuspend::class.java)
+                    logout.setOnClickListener(){
+
+                        //make funstion for logiing out
+
+                        val intent = Intent(this,MainActivity::class.java)
                         startActivity(intent)
+
                     }
 
+                    request.setOnClickListener(){
+
+                        val intent = Intent(this, KPLC_Request::class.java)
+                        startActivity(intent)
+                    }
 
                 }
             }
         }
     }
 }
+

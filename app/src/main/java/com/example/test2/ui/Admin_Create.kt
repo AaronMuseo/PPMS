@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.test2.R
 import com.example.test2.ui.ui.theme.Test2Theme
-import com.example.test2.ui.Database_Files.DatabaseHelper
+import com.example.test2.ui.Database_Files.LocalDatabase
 
 class Admin_Create : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,7 +58,7 @@ class Admin_Create : ComponentActivity() {
 
                         create_acc.setOnClickListener(){
 
-                            val DB = DatabaseHelper(this)
+                            val DB = LocalDatabase(this)
                             DB.addConsumer(username.text.toString(), password.text.toString())
 
                         }

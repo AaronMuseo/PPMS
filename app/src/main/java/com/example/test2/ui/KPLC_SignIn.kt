@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,7 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.test2.R
 import com.example.test2.ui.ui.theme.Test2Theme
 
-class Admin_Change : ComponentActivity() {
+class KPLC_SignIn : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -27,31 +28,32 @@ class Admin_Change : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
 
-                        setContentView(R.layout.admin_change_activity)
+                    setContentView(R.layout.kplc_signin_activity)
 
-                        val create = findViewById<Button>(R.id.admin_create1)
-                        val change = findViewById<Button>(R.id.change_button)
-                        val suspend = findViewById<Button>(R.id.admin_suspend2)
-                        val username = findViewById<EditText>(R.id.usr2)
-                        val password = findViewById<EditText>(R.id.pwd1)
-                        val home = findViewById<Button>(R.id.admin_home)
+                    val usr = findViewById<EditText>(R.id.kplc_username)
+                    val pwd = findViewById<EditText>(R.id.kplc_password)
+                    val lgn = findViewById<Button>(R.id.kplc_login)
+                    val back = findViewById<Button>(R.id.button3)
+
+                    lgn.setOnClickListener(){
+
+                        val username = usr.text.toString()
+                        val password = pwd.text.toString()
 
 
-                    create.setOnClickListener(){
-                        val intent = Intent(this, Admin_Create::class.java)
-                        startActivity(intent)
+                        if(username == "kplc" && password== "kplc"){
+
+                            Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
+                            val intent = Intent(this, KPLC_Home::class.java)
+                            startActivity(intent)
+                        }else{
+
+                            Toast.makeText(this, "Invalid Credentials", Toast.LENGTH_SHORT).show()
+
+                        }
+
                     }
 
-                    suspend.setOnClickListener(){
-                        val intent = Intent(this, AdminSuspend::class.java)
-                        startActivity(intent)
-                    }
-
-                    change.setOnClickListener(){
-
-                        //create function to update values on database
-
-                    }
 
                 }
             }

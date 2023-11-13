@@ -14,4 +14,9 @@
     <string name="title_activity_admin_login">Admin_Login</string>
     <string name="title_activity_admin_suspend">AdminSuspend</string>
     <string name="title_activity_admin_change">Admin_Change</string>
+    <string name="title_activity_kplc_sign_in">KPLC_SignIn</string>
+    <string name="title_activity_kplc_home">KPLC_Home</string>
+    <string name="title_activity_kplc_usage">KPLC_Usage</string>
+    <string name="title_activity_kplc_info">KPLC_Info</string>
+    <string name="title_activity_kplc_request">KPLC_Request</string>
 </resources>

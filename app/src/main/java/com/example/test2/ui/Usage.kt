@@ -43,6 +43,10 @@ class Usage : ComponentActivity() {
                         intent = Intent(this, Request::class.java)
                         startActivity(intent)
                     }
+
+
+                    //create function to read usage from meter table in database
+
                 }
             }
         }

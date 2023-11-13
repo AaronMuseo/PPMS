@@ -15,7 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.test2.R
 import com.example.test2.ui.ui.theme.Test2Theme
 
-class Admin_Home : ComponentActivity() {
+class KPLC_Request : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -26,27 +26,28 @@ class Admin_Home : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
 
-                    setContentView(R.layout.admin_home_activity)
+                    setContentView(R.layout.kplc_request_activity)
 
-                    val create = findViewById<Button>(R.id.admin_create)
-                    val change = findViewById<Button>(R.id.admin_change)
-                    val suspend = findViewById<Button>(R.id.admin_suspend)
+                    val info =findViewById<Button>(R.id.kplc_info4)
+                    val home = findViewById<Button>(R.id.kplc_home3)
+                    val usage = findViewById<Button>(R.id.kplc_usage4)
 
-                    create.setOnClickListener(){
-                        val intent = Intent(this, Admin_Create::class.java)
+                    info.setOnClickListener(){
+                        val intent = Intent(this,KPLC_Info::class.java)
                         startActivity(intent)
                     }
 
-                    change.setOnClickListener(){
-                        val intent = Intent(this,Admin_Change::class.java)
+                    home.setOnClickListener(){
+                        val intent = Intent(this,KPLC_Home::class.java)
                         startActivity(intent)
                     }
 
-                    suspend.setOnClickListener(){
-                        val intent = Intent(this, AdminSuspend::class.java)
+                    usage.setOnClickListener(){
+                        val intent = Intent(this, KPLC_Usage::class.java)
                         startActivity(intent)
                     }
 
+                    //create funtion to view details abt requests made by Consumer
 
                 }
             }

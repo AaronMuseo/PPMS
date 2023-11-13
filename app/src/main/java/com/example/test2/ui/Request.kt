@@ -45,7 +45,7 @@ class Request : ComponentActivity() {
                     }
 
                     request.setOnClickListener(){
-                        //add request function
+                        //add request function that when requested sets request status to true and gives location inputed aswell.
                     }
                 }
             }

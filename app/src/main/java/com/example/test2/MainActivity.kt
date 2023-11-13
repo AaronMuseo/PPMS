@@ -14,6 +14,8 @@ import com.example.test2.ui.Home
 import android.content.Context
 import android.content.SharedPreferences
 import com.example.test2.ui.AdminLogin
+import com.example.test2.ui.KPLC_Home
+import com.example.test2.ui.KPLC_SignIn
 import com.example.test2.ui.Register
 
 class MainActivity : ComponentActivity() {
@@ -42,6 +44,7 @@ class MainActivity : ComponentActivity() {
                     val showButton = findViewById<Button>(R.id.login)
                     val register = findViewById<Button>(R.id.register1)
                     val admin = findViewById<Button>(R.id.admin_login)
+                    val kplc = findViewById<Button>(R.id.kplc_login2)
 
                     register.setOnClickListener() {
                         val intent = Intent(this, Register::class.java)
@@ -61,19 +64,28 @@ class MainActivity : ComponentActivity() {
                         val password = inputText2.text.toString()
 
                         if (username == "Aaron" && password == "Aaron") {
-                            println("Login Success")
+
+                            Toast.makeText(this, "Logged in Successfully", Toast.LENGTH_SHORT).show()
 
                             val intent = Intent(this, Home::class.java)
                             startActivity(intent)
 
                         } else {
-                            println("Login Failed")
-                            Toast.makeText(this, inputText.text, Toast.LENGTH_SHORT).show()
+
+                            Toast.makeText(this, "Invalid Credentials", Toast.LENGTH_SHORT).show()
                         }
 
 
 
                    }
+
+                    kplc.setOnClickListener(){
+                        val intent = Intent(this, KPLC_SignIn::class.java)
+                        startActivity(intent)
+
+
+
+                    }
 
                 }
             }

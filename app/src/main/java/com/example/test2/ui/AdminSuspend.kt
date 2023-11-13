@@ -46,6 +46,12 @@ class AdminSuspend : ComponentActivity() {
                         startActivity(intent)
                     }
 
+                    change.setOnClickListener(){
+
+                        //create function to delete accounts
+
+                    }
+
 
 
 

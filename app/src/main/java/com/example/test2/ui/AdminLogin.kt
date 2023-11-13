@@ -50,6 +50,12 @@ class AdminLogin : ComponentActivity() {
                             Toast.makeText(this, "Invalid credentials", Toast.LENGTH_SHORT).show()
                             // Invalid credentials, show a message or handle it as needed
                         }
+
+                    }
+
+                    back.setOnClickListener(){
+                        val intent = Intent(this, Admin_Home::class.java)
+                        startActivity(intent)
                     }
 
 
