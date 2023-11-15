@@ -13,7 +13,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
 
     private Context context;
     private static final String DATABASE_NAME = "ppmsDB.db";
-    private static final int DATABASE_VERSION = 26;
+    private static final int DATABASE_VERSION = 28;
 
 
     //consumer table
@@ -105,19 +105,39 @@ public class LocalDatabase extends SQLiteOpenHelper {
         db.execSQL(query5);
         db.execSQL(query6);
 
-        for (int i = 1; i <= 1000; i++){
+        for (int i = 1; i <= 1000; i++) {
             ContentValues cv = new ContentValues();
             cv.put(COLUMN_METER_LOCATION, "");
             cv.put(COLUMN_METER_CUSTOMER, +i);
             cv.put(COLUMN_METER_USAGE, 0);
             cv.put(COLUMN_METER_TOKEN, 0);
 
-            db.insert(TABLE_NAME_METER, null, cv);
+
+
+
+            //where the assigning takes place
+            long meterID = db.insert(TABLE_NAME_METER, null, cv);
+
+            if (meterID != -1) {
+                // Retrieve the location of the consumer from COLUMN_CONSUMER_LOCATION using the ID
+                Cursor cursor = db.query(TABLE_NAME_CONSUMER, new String[]{COLUMN_CONSUMER_LOCATION}, COLUMN_CONSUMER_ID + " = ?",
+                        new String[]{String.valueOf(i)}, null, null, null);
+
+                String location = "";
+                if (cursor.moveToFirst()) {
+                    location = cursor.getString(cursor.getColumnIndex(COLUMN_CONSUMER_LOCATION));
+                }
+                cursor.close();
+
+                // Update the meter location to match the consumer's location
+                ContentValues updateCV = new ContentValues();
+                updateCV.put(COLUMN_METER_LOCATION, location);
+
+                db.update(TABLE_NAME_METER, updateCV, COLUMN_METER_NUM + " = ?", new String[]{String.valueOf(meterID)});
+
+
+            }
         }
-
-
-
-
     }
 
     @Override
