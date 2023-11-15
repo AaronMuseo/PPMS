@@ -9,8 +9,10 @@ import androidx.activity.compose.setContent
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import com.example.test2.ui.theme.Test2Theme
-import android.content.Context
+import android.widget.EditText
+import android.widget.Toast
 import com.example.test2.R
+import com.example.test2.ui.Database_Files.LocalDatabase
 
 class Purchase: ComponentActivity() {
 
@@ -21,41 +23,59 @@ class Purchase: ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colorScheme.background) {
 
-                setContentView(R.layout.purchase_activity)
+                    setContentView(R.layout.purchase_activity)
 
-                    val sharedPreferences = getSharedPreferences("login_pref", Context.MODE_PRIVATE)
-
-                    val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
 
                     val request = findViewById<Button>(R.id.request1)
                     val home = findViewById<Button>(R.id.home1)
                     val usage = findViewById<Button>(R.id.usage1)
+                    val purchase = findViewById<Button>(R.id.button7)
+                    val meter_number = findViewById<EditText>(R.id.Meter_number)
+                    val quantity = findViewById<EditText>(R.id.token_amount)
+                    val customerid = findViewById<EditText>(R.id.customerid_purchase)
 
-                    home.setOnClickListener(){
+                    home.setOnClickListener() {
 
-                        intent = Intent(this, Home::class.java)
+                        val intent = Intent(this, Home::class.java)
                         startActivity(intent)
 
                     }
 
-                    usage.setOnClickListener(){
+                    usage.setOnClickListener() {
 
-                        intent = Intent(this, Usage::class.java)
+                        val intent = Intent(this, Usage::class.java)
                         startActivity(intent)
 
                     }
 
-                    request.setOnClickListener(){
+                    request.setOnClickListener() {
 
-                        intent = Intent(this, Request::class.java)
+                        val intent = Intent(this, Request::class.java)
                         startActivity(intent)
 
                     }
 
+                    purchase.setOnClickListener() {
 
-                    //make a function that allows purchase of tokens and updates the tokens in the database in all the tabels invlolved
+                        val tokensQuantity = quantity.text.toString().toIntOrNull()
+                        val meterNumber = meter_number.text.toString().toIntOrNull()
+                        val customerId = customerid.text.toString().toIntOrNull()
+
+                        if (tokensQuantity != null && meterNumber != null && customerId != null) {
+                            val pricePerToken = if (tokensQuantity > 10) 15.8 else 12.0 // Price per token based on quantity
+                            val totalPrice = pricePerToken * tokensQuantity // Total price calculation
+
+                            // Update token quantity in the Token table and associate it with the meter
+                            val localDatabase = LocalDatabase(this)
+                            localDatabase.purchaseTokens(tokensQuantity, meterNumber, customerId, pricePerToken)
+
+                            Toast.makeText(this, "Tokens purchased and assigned to the meter", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(this, "Invalid input, please check your values", Toast.LENGTH_SHORT).show()
+                        }
 
 
+                    }
                 }
             }
         }

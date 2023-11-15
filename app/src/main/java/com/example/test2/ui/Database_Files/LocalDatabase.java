@@ -13,7 +13,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
 
     private Context context;
     private static final String DATABASE_NAME = "ppmsDB.db";
-    private static final int DATABASE_VERSION = 28;
+    private static final int DATABASE_VERSION = 30;
 
 
     //consumer table
@@ -291,6 +291,27 @@ public class LocalDatabase extends SQLiteOpenHelper {
 
         db.update(TABLE_NAME_METER, contentValues, whereClause, whereArgs);
     }
+
+    public void purchaseTokens(int tokensQuantity, int meterNumber, int customerId, double pricePerToken) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues tokenValues = new ContentValues();
+        tokenValues.put(COLUMN_TOKEN_CUSTOMER, customerId);
+        tokenValues.put(COLUMN_TOKEN_QUANTITY, tokensQuantity);
+        tokenValues.put(COLUMN_TOKEN_PRICE, pricePerToken * tokensQuantity);
+
+        long tokenInsertResult = db.insert(TABLE_NAME_TOKEN, null, tokenValues);
+
+        if (tokenInsertResult != -1) {
+            ContentValues updateTokenQuantity = new ContentValues();
+            updateTokenQuantity.put(COLUMN_TOKEN_QUANTITY, tokensQuantity);
+            db.update(TABLE_NAME_METER, updateTokenQuantity, COLUMN_METER_NUM + " = ? AND " + COLUMN_METER_CUSTOMER + " = ?",
+                    new String[]{String.valueOf(meterNumber), String.valueOf(customerId)});
+        } else {
+            Toast.makeText(context, "Token purchase failed", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
 }
 

@@ -36,30 +36,24 @@ class Request : ComponentActivity() {
 
 
                     val home = findViewById<Button>(R.id.home_r)
-                    val Purchase = findViewById<Button>(R.id.purchase_r)
-                    val Usage = findViewById<Button>(R.id.usage_r)
+                    val purchase = findViewById<Button>(R.id.purchase_r)
+                    val usage = findViewById<Button>(R.id.usage_r)
                     val request = findViewById<Button>(R.id.request_button)
                     val customerid = findViewById<EditText>(R.id.cust_ID)
 
 
-
-
-
-                    home.setOnClickListener(){
-                        intent = Intent(this, Home::class.java)
+                    home.setOnClickListener {
+                        val intent = Intent(this, Home::class.java)
                         startActivity(intent)
                     }
-
-                    Purchase.setOnClickListener(){
-                        intent = Intent(this, Purchase::class.java)
+                    purchase.setOnClickListener {
+                        val intent = Intent(this, Purchase::class.java)
                         startActivity(intent)
                     }
-
-                    Usage.setOnClickListener(){
-                        intent = Intent(this, Usage::class.java)
+                    usage.setOnClickListener {
+                        val intent = Intent(this, Usage::class.java)
                         startActivity(intent)
                     }
-
 
 
                     request.setOnClickListener() {
