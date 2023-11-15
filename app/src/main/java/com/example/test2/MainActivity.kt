@@ -18,11 +18,12 @@ import com.example.test2.ui.Database_Files.LocalDatabase
 import com.example.test2.ui.KPLC_Home
 import com.example.test2.ui.KPLC_SignIn
 import com.example.test2.ui.Register
+import com.example.test2.ui.Request
 
 class MainActivity : ComponentActivity() {
 
-
-
+    private val PREFS_NAME = "MyPrefs"
+    private val CUSTOMER_ID_KEY = "customer_id"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +43,7 @@ class MainActivity : ComponentActivity() {
                     val inputText = findViewById<EditText>(R.id.username)
                     val inputText2 = findViewById<EditText>(R.id.password)
 
-                    val showButton = findViewById<Button>(R.id.login)
+                    val login = findViewById<Button>(R.id.login)
                     val register = findViewById<Button>(R.id.register1)
                     val admin = findViewById<Button>(R.id.admin_login)
                     val kplc = findViewById<Button>(R.id.kplc_login2)
@@ -59,7 +60,7 @@ class MainActivity : ComponentActivity() {
 
                     }
 
-                    showButton.setOnClickListener {
+                    login.setOnClickListener {
 
                         val username = inputText.text.toString()
                         val password = inputText2.text.toString()
@@ -68,9 +69,21 @@ class MainActivity : ComponentActivity() {
                         val loginSuccessful = DB.loginUser(username, password)
 
                         if (loginSuccessful) {
+
+                            val customerID = DB.getCustomerIdByUsername(username)
+
+                            val sharedPref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+
+                            val editor = sharedPref.edit()
+
+                            editor.putInt(CUSTOMER_ID_KEY, customerID)
+                            editor.apply()
+
                             Toast.makeText(this, "Logged in Successfully", Toast.LENGTH_SHORT).show()
 
-                            val intent = Intent(this, Home::class.java)
+                            val intent = Intent(this, Request::class.java)
+                            intent.putExtra("USERNAME", username)
+                            intent.putExtra("CUSTOMER_ID_KEY", CUSTOMER_ID_KEY)
                             startActivity(intent)
                         } else {
                             Toast.makeText(this, "Invalid Credentials", Toast.LENGTH_SHORT).show()
@@ -85,6 +98,8 @@ class MainActivity : ComponentActivity() {
 
 
                     }
+
+
 
                 }
             }
