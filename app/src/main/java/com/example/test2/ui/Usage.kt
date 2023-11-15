@@ -45,7 +45,7 @@ class Usage : ComponentActivity() {
                     }
 
 
-                    //create function to read usage from meter table in database
+                    //create function to read usage from meter table in database after the usage is calculated
 
                 }
             }

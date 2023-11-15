@@ -53,6 +53,8 @@ class Purchase: ComponentActivity() {
                     }
 
 
+                    //make a function that allows purchase of tokens and updates the tokens in the database in all the tabels invlolved
+
 
                 }
             }

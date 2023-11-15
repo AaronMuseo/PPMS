@@ -13,7 +13,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
 
     private Context context;
     private static final String DATABASE_NAME = "ppmsDB.db";
-    private static final int DATABASE_VERSION = 13;
+    private static final int DATABASE_VERSION = 18;
 
     //consumer table
     private static final String TABLE_NAME_CONSUMER = "Consumer";
@@ -103,6 +103,16 @@ public class LocalDatabase extends SQLiteOpenHelper {
         db.execSQL(query4);
         db.execSQL(query5);
         db.execSQL(query6);
+
+        for (int i = 1; i <= 1000; i++){
+            ContentValues cv = new ContentValues();
+            cv.put(COLUMN_METER_LOCATION, "null" + i);
+            cv.put(COLUMN_METER_CUSTOMER, i);
+            cv.put(COLUMN_METER_USAGE, 0);
+            cv.put(COLUMN_METER_TOKEN, 0);
+
+            db.insert(TABLE_NAME_METER, null, cv);
+        }
 
 
 
@@ -220,6 +230,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
         cursor.close();
         return loginSuccessful;
     }
+
 
 
 }

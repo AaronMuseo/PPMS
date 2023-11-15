@@ -44,8 +44,10 @@ class Request : ComponentActivity() {
                         startActivity(intent)
                     }
 
-                    request.setOnClickListener(){
-                        //add request function that when requested sets request status to true and gives location inputed aswell.
+                    request.setOnClickListener() {
+
+                    //make a function to request using the customer ID and password for that customer id and send it to the database so that if they match a Meter is assigned to the user and the meter has the customer id entered assigned to it and the meter is added to the database
+
                     }
                 }
             }

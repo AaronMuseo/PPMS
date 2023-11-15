@@ -68,6 +68,8 @@ class Home : ComponentActivity() {
                                 startActivity(intent)
                     }
 
+                    // when the meter number that is associated with the customer id is entered the meter number is checked against the database and if it matches it displays the meter information
+
                 }
             }
         }
