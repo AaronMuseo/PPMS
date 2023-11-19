@@ -13,7 +13,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
 
     private Context context;
     private static final String DATABASE_NAME = "ppmsDB.db";
-    private static final int DATABASE_VERSION = 30;
+    private static final int DATABASE_VERSION = 31;
 
 
     //consumer table
@@ -303,14 +303,47 @@ public class LocalDatabase extends SQLiteOpenHelper {
         long tokenInsertResult = db.insert(TABLE_NAME_TOKEN, null, tokenValues);
 
         if (tokenInsertResult != -1) {
+            // Retrieve the current token quantity associated with the meter
+            int currentMeterTokenQuantity = getCurrentMeterTokenQuantity(db, meterNumber, customerId);
+
+            // Calculate the new total token quantity
+            int newTotalTokenQuantity = currentMeterTokenQuantity + tokensQuantity;
+
+            // Update the token quantity in TABLE_NAME_METER
             ContentValues updateTokenQuantity = new ContentValues();
-            updateTokenQuantity.put(COLUMN_TOKEN_QUANTITY, tokensQuantity);
-            db.update(TABLE_NAME_METER, updateTokenQuantity, COLUMN_METER_NUM + " = ? AND " + COLUMN_METER_CUSTOMER + " = ?",
+            updateTokenQuantity.put(COLUMN_METER_TOKEN, newTotalTokenQuantity);
+            int updatedRows = db.update(TABLE_NAME_METER, updateTokenQuantity,
+                    COLUMN_METER_NUM + " = ? AND " + COLUMN_METER_CUSTOMER + " = ?",
                     new String[]{String.valueOf(meterNumber), String.valueOf(customerId)});
+
+            if (updatedRows > 0) {
+                Toast.makeText(context, "Tokens purchased and assigned to the meter", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(context, "Failed to update meter with token purchase", Toast.LENGTH_SHORT).show();
+            }
         } else {
             Toast.makeText(context, "Token purchase failed", Toast.LENGTH_SHORT).show();
         }
     }
+
+    // Helper method to get the current token quantity associated with the meter
+    private int getCurrentMeterTokenQuantity(SQLiteDatabase db, int meterNumber, int customerId) {
+        int currentQuantity = 0;
+        Cursor cursor = db.query(TABLE_NAME_METER,
+                new String[]{COLUMN_METER_TOKEN},
+                COLUMN_METER_NUM + " = ? AND " + COLUMN_METER_CUSTOMER + " = ?",
+                new String[]{String.valueOf(meterNumber), String.valueOf(customerId)},
+                null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            currentQuantity = cursor.getInt(cursor.getColumnIndex(COLUMN_METER_TOKEN));
+            cursor.close();
+        }
+
+        return currentQuantity;
+    }
+
+
 
 
 }
