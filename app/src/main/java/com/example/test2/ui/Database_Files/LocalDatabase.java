@@ -13,7 +13,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
 
     private Context context;
     private static final String DATABASE_NAME = "ppmsDB.db";
-    private static final int DATABASE_VERSION = 31;
+    private static final int DATABASE_VERSION = 32;
 
 
     //consumer table
@@ -343,8 +343,33 @@ public class LocalDatabase extends SQLiteOpenHelper {
         return currentQuantity;
     }
 
+    Cursor readAllData() {
+        String query = "SELECT * FROM " + TABLE_NAME_CONSUMER;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = null;
+        if (db != null) {
+            cursor = db.rawQuery(query, null);
+
+        }
+        return cursor;
+    }
 
 
+    public int getUsageByMeterNumber(int meterNumber) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        int usage = -1; // Default value indicating no usage found
 
+        String query = "SELECT " + COLUMN_METER_USAGE + " FROM " + TABLE_NAME_METER + " WHERE " + COLUMN_METER_NUM + " = ?";
+        String[] selectionArgs = { String.valueOf(meterNumber) };
+        Cursor cursor = db.rawQuery(query, selectionArgs);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            usage = cursor.getInt(cursor.getColumnIndex(COLUMN_METER_USAGE));
+            cursor.close();
+        }
+
+        return usage;
+    }
 }
 
