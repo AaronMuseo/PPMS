@@ -1,9 +1,12 @@
 package com.example.test2.ui
 
 import android.content.Intent
+import android.database.Cursor
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.test2.R
+import com.example.test2.ui.Database_Files.LocalDatabase
 import com.example.test2.ui.ui.theme.Test2Theme
 
 class KPLC_Usage : ComponentActivity() {
@@ -34,11 +38,21 @@ class KPLC_Usage : ComponentActivity() {
                     val home = findViewById<Button>(R.id.kplc_home1)
                     val info = findViewById<Button>(R.id.kplc_info1)
 
-                    search.setOnClickListener(){
+                    search.setOnClickListener {
 
-                        //create function to read data from database
+                        val meterNumber = usage_text.text.toString().toIntOrNull()
+                        if (meterNumber != null) {
+                            val localDatabase = LocalDatabase(this)
+                            val meterInfo = localDatabase.getMeterInfoByMeterNumber(meterNumber)
+
+                            val resultTextView = findViewById<TextView>(R.id.result_kplc)
+                            resultTextView.text = meterInfo // Display all columns' information in the TextView
+                        } else {
+                            Toast.makeText(this, "Please enter a valid meter number", Toast.LENGTH_SHORT).show()
+                        }
 
                     }
+
 
                     home.setOnClickListener(){
 

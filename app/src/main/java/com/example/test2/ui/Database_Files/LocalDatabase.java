@@ -13,7 +13,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
 
     private Context context;
     private static final String DATABASE_NAME = "ppmsDB.db";
-    private static final int DATABASE_VERSION = 32;
+    private static final int DATABASE_VERSION = 37;
 
 
     //consumer table
@@ -183,7 +183,8 @@ public class LocalDatabase extends SQLiteOpenHelper {
             cv.put(COLUMN_CONSUMER_USERNAME, newUsername);
             cv.put(COLUMN_CONSUMER_PASSWORD, newPassword);
 
-            long result = db.update(TABLE_NAME_CONSUMER, cv, COLUMN_CONSUMER_USERNAME + " = ? AND " + COLUMN_CONSUMER_PASSWORD + " = ?", new String[]{oldUsername, oldPassword});
+            int result = db.update(TABLE_NAME_CONSUMER, cv, COLUMN_CONSUMER_USERNAME + " = ? AND " + COLUMN_CONSUMER_PASSWORD + " = ?",
+                    new String[]{oldUsername, oldPassword});
 
             if (result > 0) {
                 Toast.makeText(context, "Update Successful", Toast.LENGTH_SHORT).show();
@@ -194,6 +195,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
             Toast.makeText(context, "Old username or password is incorrect", Toast.LENGTH_SHORT).show();
         }
     }
+
 
     private boolean checkCredentials(SQLiteDatabase db, String username, String password) {
         String selection = "Username = ? AND Password = ?";
@@ -371,5 +373,57 @@ public class LocalDatabase extends SQLiteOpenHelper {
 
         return usage;
     }
+
+    public String getMeterInfoByMeterNumber(int meterNumber) {
+        SQLiteDatabase db = getReadableDatabase();
+        String[] columns = {COLUMN_METER_NUM, COLUMN_METER_LOCATION, COLUMN_METER_CUSTOMER, COLUMN_METER_USAGE, COLUMN_METER_TOKEN};
+        String selection = COLUMN_METER_NUM + " = ?";
+        String[] selectionArgs = {String.valueOf(meterNumber)};
+
+        Cursor cursor = db.query(TABLE_NAME_METER, columns, selection, selectionArgs, null, null, null);
+        StringBuilder stringBuilder = new StringBuilder();
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                for (int i = 0; i < cursor.getColumnCount(); i++) {
+                    String columnName = cursor.getColumnName(i);
+                    String columnValue = cursor.getString(i);
+                    stringBuilder.append(columnName).append(": ").append(columnValue).append("\n");
+                }
+                stringBuilder.append("\n");
+            } while (cursor.moveToNext());
+        } else {
+            stringBuilder.append("No information found for this meter number");
+        }
+
+        if (cursor != null) {
+            cursor.close();
+        }
+
+        return stringBuilder.toString();
+    }
+
+    public void deleteUser(String username, int customerId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // Check if the user with the given username and customer ID exists
+        boolean userExists = checkUserExists(db, username, customerId);
+
+        if (userExists) {
+            int result = db.delete(TABLE_NAME_CONSUMER, COLUMN_CONSUMER_USERNAME + " = ? AND " + COLUMN_CONSUMER_ID + " = ?",
+                    new String[]{username, String.valueOf(customerId)});
+
+            if (result > 0) {
+                Toast.makeText(context, "User deleted successfully", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(context, "Failed to delete user", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(context, "User not found", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+
 }
 

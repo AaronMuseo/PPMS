@@ -50,11 +50,18 @@
                             val intent = Intent(this, AdminSuspend::class.java)
                             startActivity(intent)
                         }
+                        home.setOnClickListener {
+                            val intent = Intent(this, Admin_Home::class.java)
+                            startActivity(intent)
 
-                        change.setOnClickListener(){
-                            val DB = LocalDatabase(this)
-                            DB.updateConsumer(oldusr.text.toString(), pwd2.text.toString(), username.text.toString(), password.text.toString())
                         }
+
+                        change.setOnClickListener {
+                            val DB = LocalDatabase(this)
+                            DB.updateConsumer(oldusr.text.toString(), password.text.toString(), username.text.toString(), pwd2.text.toString())
+                        }
+
+
                     }
                 }
             }

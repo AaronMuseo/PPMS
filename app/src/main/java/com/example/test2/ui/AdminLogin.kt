@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import com.example.test2.MainActivity
 import com.example.test2.R
 import com.example.test2.ui.ui.theme.Test2Theme
 
@@ -54,7 +55,7 @@ class AdminLogin : ComponentActivity() {
                     }
 
                     back.setOnClickListener(){
-                        val intent = Intent(this, Admin_Home::class.java)
+                        val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
                     }
 

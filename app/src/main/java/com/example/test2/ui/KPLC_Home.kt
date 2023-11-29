@@ -32,7 +32,7 @@ class KPLC_Home : ComponentActivity() {
                     val info = findViewById<Button>(R.id.kplc_info)
                     val usage = findViewById<Button>(R.id.kplc_usage)
                     val logout = findViewById<Button>(R.id.kplc_logout1)
-                    val request = findViewById<Button>(R.id.kplc_home_request)
+
 
                     info.setOnClickListener(){
                         val intent = Intent(this, KPLC_Info::class.java)
@@ -51,12 +51,6 @@ class KPLC_Home : ComponentActivity() {
                         val intent = Intent(this,MainActivity::class.java)
                         startActivity(intent)
 
-                    }
-
-                    request.setOnClickListener(){
-
-                        val intent = Intent(this, KPLC_Request::class.java)
-                        startActivity(intent)
                     }
 
                 }

@@ -89,17 +89,6 @@
         app:layout_constraintTop_toBottomOf="@+id/home1"
         app:layout_constraintVertical_bias="0.278" />
 
-    <Button
-        android:id="@+id/button6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="72dp"
-        android:text="Card"
-        app:layout_constraintBottom_toTopOf="@+id/button7"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/token_amount"
-        app:layout_constraintVertical_bias="0.497" />
-
     <TextView
         android:id="@+id/textView2"
         android:layout_width="119dp"
@@ -112,23 +101,11 @@
         app:layout_constraintTop_toBottomOf="@+id/token_amount"
         app:layout_constraintVertical_bias="0.114" />
 
-    <Button
-        android:id="@+id/button5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="M-Pesa"
-        app:layout_constraintBottom_toTopOf="@+id/button7"
-        app:layout_constraintEnd_toStartOf="@+id/button6"
-        app:layout_constraintHorizontal_bias="0.423"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/token_amount"
-        app:layout_constraintVertical_bias="0.497" />
-
     <EditText
         android:id="@+id/customerid_purchase"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="540dp"
+        android:layout_marginBottom="500dp"
         android:ems="10"
         android:hint="Enter Customer ID"
         android:inputType="text"

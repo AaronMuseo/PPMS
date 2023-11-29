@@ -36,6 +36,7 @@ class AdminSuspend : ComponentActivity() {
                         val suspend = findViewById<Button>(R.id.Home1)
                         val create = findViewById<Button>(R.id.Create)
                         val change = findViewById<Button>(R.id.Change)
+                        val delete = findViewById<Button>(R.id.suspen1)
 
 
                         create.setOnClickListener(){
@@ -48,16 +49,16 @@ class AdminSuspend : ComponentActivity() {
                         startActivity(intent)
                     }
 
-                    change.setOnClickListener(){
+                    delete.setOnClickListener(){
 
                         val DB = LocalDatabase(this)
                         val usernameToDelete = usr.text.toString()
                         val customerIdToDelete = ID.text.toString().toIntOrNull()
 
                         if (customerIdToDelete != null) {
-                            DB.deleteConsumer(usernameToDelete, customerIdToDelete)
+                            DB.deleteUser(usernameToDelete, customerIdToDelete)
                         } else {
-                            // Handle the case where the entered customer ID is not a valid integer
+
                             Toast.makeText(this, "Invalid Customer ID", Toast.LENGTH_SHORT).show()
                         }
 
