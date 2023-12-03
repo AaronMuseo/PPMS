@@ -40,7 +40,9 @@ class Admin_Create : ComponentActivity() {
 
 
                         home.setOnClickListener(){
-                            //add create function
+
+                            val intent = Intent(this, Admin_Home::class.java)
+                            startActivity(intent)
 
                         }
 

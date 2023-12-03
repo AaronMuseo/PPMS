@@ -13,6 +13,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.example.test2.MainActivity
 import com.example.test2.R
+import com.example.test2.ui.Database_Files.LocalDatabase
 import com.example.test2.ui.ui.theme.Test2Theme
 
 
@@ -38,18 +39,20 @@ class AdminLogin : ComponentActivity() {
                     val back = findViewById<Button>(R.id.back)
 
                     login.setOnClickListener() {
+
                         val username = usr.text.toString()
                         val password = pwd.text.toString()
 
-                        // Add your validation logic here
-                        if (username == "Admin" && password == "admin") {
+                        val localDatabase = LocalDatabase(this) // Create an instance of your Java LocalDatabase class
 
-                            val intent = Intent(this, Admin_Create::class.java)
+                        val loginSuccessful = localDatabase.loginAdmin(username, password)
+
+                        if (loginSuccessful) {
+                            Toast.makeText(this, "Admin Login Successful", Toast.LENGTH_SHORT).show()
+                            val intent = Intent(this, Admin_Create::class.java) // Replace Admin_Create with your Admin activity
                             startActivity(intent)
-
                         } else {
-                            Toast.makeText(this, "Invalid credentials", Toast.LENGTH_SHORT).show()
-                            // Invalid credentials, show a message or handle it as needed
+                            Toast.makeText(this, "Invalid Admin Credentials", Toast.LENGTH_SHORT).show()
                         }
 
                     }

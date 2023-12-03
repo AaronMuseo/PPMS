@@ -33,20 +33,26 @@ class AdminSuspend : ComponentActivity() {
 
                         val usr = findViewById<EditText>(R.id.usr)
                         val ID = findViewById<EditText>(R.id.ID)
-                        val suspend = findViewById<Button>(R.id.Home1)
+                        val home = findViewById<Button>(R.id.Home1)
                         val create = findViewById<Button>(R.id.Create)
                         val change = findViewById<Button>(R.id.Change)
                         val delete = findViewById<Button>(R.id.suspen1)
 
+                    change.setOnClickListener(){
 
-                        create.setOnClickListener(){
-                            val intent = Intent(this, Admin_Create::class.java)
-                            startActivity(intent)
-                        }
-
-                    suspend.setOnClickListener(){
-                        val intent = Intent(this, AdminSuspend::class.java)
+                        val intent = Intent(this, Admin_Change::class.java)
                         startActivity(intent)
+                    }
+
+                    create.setOnClickListener(){
+                        val intent = Intent(this, Admin_Create::class.java)
+                        startActivity(intent)
+                    }
+
+                    home.setOnClickListener {
+                        val intent = Intent(this, Admin_Home::class.java)
+                        startActivity(intent)
+
                     }
 
                     delete.setOnClickListener(){

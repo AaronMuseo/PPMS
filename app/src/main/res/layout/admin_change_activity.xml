@@ -71,7 +71,7 @@
         android:id="@+id/usr_old_usr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="212dp"
+        android:layout_marginTop="224dp"
         android:ems="10"
         android:hint="Old Username"
         android:inputType="text"

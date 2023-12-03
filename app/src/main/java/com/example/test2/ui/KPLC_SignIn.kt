@@ -10,11 +10,10 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import com.example.test2.MainActivity
 import com.example.test2.R
+import com.example.test2.ui.Database_Files.LocalDatabase
 import com.example.test2.ui.ui.theme.Test2Theme
 
 class KPLC_SignIn : ComponentActivity() {
@@ -33,25 +32,30 @@ class KPLC_SignIn : ComponentActivity() {
                     val usr = findViewById<EditText>(R.id.kplc_username)
                     val pwd = findViewById<EditText>(R.id.kplc_password)
                     val lgn = findViewById<Button>(R.id.kplc_login)
-                    val back = findViewById<Button>(R.id.button3)
+                    val back = findViewById<Button>(R.id.back_kplc)
 
                     lgn.setOnClickListener(){
 
                         val username = usr.text.toString()
                         val password = pwd.text.toString()
 
+                        val localDatabase = LocalDatabase(this) // Create an instance of your Java LocalDatabase class
 
-                        if(username == "kplc" && password== "kplc"){
+                        val loginSuccessful = localDatabase.loginKPLC(username, password)
 
+                        if (loginSuccessful) {
                             Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
                             val intent = Intent(this, KPLC_Home::class.java)
                             startActivity(intent)
-                        }else{
-
+                        } else {
                             Toast.makeText(this, "Invalid Credentials", Toast.LENGTH_SHORT).show()
-
                         }
 
+                    }
+
+                    back.setOnClickListener(){
+                        val intent = Intent(this, MainActivity::class.java)
+                        startActivity(intent)
                     }
 
 

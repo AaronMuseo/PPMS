@@ -13,7 +13,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
 
     private Context context;
     private static final String DATABASE_NAME = "ppmsDB.db";
-    private static final int DATABASE_VERSION = 37;
+    private static final int DATABASE_VERSION = 38;
 
 
     //consumer table
@@ -113,8 +113,6 @@ public class LocalDatabase extends SQLiteOpenHelper {
             cv.put(COLUMN_METER_TOKEN, 0);
 
 
-
-
             //where the assigning takes place
             long meterID = db.insert(TABLE_NAME_METER, null, cv);
 
@@ -138,6 +136,20 @@ public class LocalDatabase extends SQLiteOpenHelper {
 
             }
         }
+
+        // these are for setting the kplc and admin credentials when app is installed.
+
+        ContentValues adminCredentials = new ContentValues();
+        adminCredentials.put(COLUMN_ADMIN_NAME, "Admin");
+        adminCredentials.put(COLUMN_ADMIN_PASSWORD, "123");
+        db.insert(TABLE_NAME_ADMIN, null, adminCredentials);
+
+        ContentValues kplcCredentials = new ContentValues();
+        kplcCredentials.put(COLUMN_KPLC_NAME, "kplc");
+        kplcCredentials.put(COLUMN_KPLC_PASSWORD, "123");
+        db.insert(TABLE_NAME_KPLC, null, kplcCredentials);
+
+
     }
 
     @Override
@@ -163,7 +175,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
         long result = db.insert(TABLE_NAME_CONSUMER, null, cv);
 
         if (result == -1) {
-            Toast.makeText(context, "Insertion Faile", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Insertion Failed", Toast.LENGTH_SHORT).show();
 
 
         } else {
@@ -423,6 +435,31 @@ public class LocalDatabase extends SQLiteOpenHelper {
         }
     }
 
+    public boolean loginKPLC(String username, String password) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {COLUMN_KPLC_NAME};
+        String selection = COLUMN_KPLC_NAME + " = ? AND " + COLUMN_KPLC_PASSWORD + " = ?";
+        String[] selectionArgs = {username, password};
+        Cursor cursor = db.query(TABLE_NAME_KPLC, columns, selection, selectionArgs, null, null, null);
+
+        boolean loginSuccessful = cursor.getCount() > 0;
+
+        cursor.close();
+        return loginSuccessful;
+    }
+
+    public boolean loginAdmin(String username, String password) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {COLUMN_ADMIN_NAME};
+        String selection = COLUMN_ADMIN_NAME + " = ? AND " + COLUMN_ADMIN_PASSWORD + " = ?";
+        String[] selectionArgs = {username, password};
+        Cursor cursor = db.query(TABLE_NAME_ADMIN, columns, selection, selectionArgs, null, null, null);
+
+        boolean loginSuccessful = cursor.getCount() > 0;
+
+        cursor.close();
+        return loginSuccessful;
+    }
 
 
 }

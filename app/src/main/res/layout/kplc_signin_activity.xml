@@ -55,7 +55,7 @@
         tools:text="KPLC Login" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/back_kplc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="168dp"

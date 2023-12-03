@@ -10,14 +10,10 @@ import androidx.activity.compose.setContent
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import com.example.test2.ui.theme.Test2Theme
-import com.example.test2.ui.Home
 import android.content.Context
-import android.content.SharedPreferences
 import com.example.test2.ui.AdminLogin
 import com.example.test2.ui.Database_Files.LocalDatabase
-import com.example.test2.ui.KPLC_Home
 import com.example.test2.ui.KPLC_SignIn
-import com.example.test2.ui.Register
 import com.example.test2.ui.Request
 
 class MainActivity : ComponentActivity() {
@@ -44,14 +40,9 @@ class MainActivity : ComponentActivity() {
                     val inputText2 = findViewById<EditText>(R.id.password)
 
                     val login = findViewById<Button>(R.id.login)
-                    val register = findViewById<Button>(R.id.register1)
                     val admin = findViewById<Button>(R.id.admin_login)
                     val kplc = findViewById<Button>(R.id.kplc_login2)
 
-                    register.setOnClickListener() {
-                        val intent = Intent(this, Register::class.java)
-                        startActivity(intent)
-                    }
 
                     admin.setOnClickListener() {
                         val intent = Intent(this, AdminLogin::class.java)

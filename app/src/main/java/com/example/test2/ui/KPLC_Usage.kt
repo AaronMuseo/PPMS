@@ -36,7 +36,7 @@ class KPLC_Usage : ComponentActivity() {
                     val usage_text = findViewById<EditText>(R.id.kplc_usage_search)
                     val search = findViewById<Button>(R.id.kplc_search1)
                     val home = findViewById<Button>(R.id.kplc_home1)
-                    val info = findViewById<Button>(R.id.kplc_info1)
+
 
                     search.setOnClickListener {
 
@@ -61,12 +61,7 @@ class KPLC_Usage : ComponentActivity() {
 
                     }
 
-                    info.setOnClickListener(){
 
-                        val intent = Intent(this, KPLC_Info::class.java)
-                        startActivity(intent)
-
-                    }
 
                 }
             }
