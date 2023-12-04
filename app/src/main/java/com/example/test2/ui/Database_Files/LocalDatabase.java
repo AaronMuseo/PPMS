@@ -418,7 +418,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
     public void deleteUser(String username, int customerId) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        // Check if the user with the given username and customer ID exists
+
         boolean userExists = checkUserExists(db, username, customerId);
 
         if (userExists) {

@@ -39,7 +39,7 @@ class KPLC_SignIn : ComponentActivity() {
                         val username = usr.text.toString()
                         val password = pwd.text.toString()
 
-                        val localDatabase = LocalDatabase(this) // Create an instance of your Java LocalDatabase class
+                        val localDatabase = LocalDatabase(this)
 
                         val loginSuccessful = localDatabase.loginKPLC(username, password)
 

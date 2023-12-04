@@ -12,15 +12,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.test2.MainActivity
 import com.example.test2.R
-import com.example.test2.ui.ui.theme.Test2Theme
+import com.example.test2.ui.ui.theme.ui.theme.Test2Theme
 
-class Admin_Home : ComponentActivity() {
+class AdminHome : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             Test2Theme {
-                // A surface container using the 'background' color from the theme
+
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
@@ -30,7 +31,8 @@ class Admin_Home : ComponentActivity() {
 
                     val create = findViewById<Button>(R.id.admin_create)
                     val change = findViewById<Button>(R.id.admin_change)
-                    val suspend = findViewById<Button>(R.id.admin_suspend)
+                    val delete = findViewById<Button>(R.id.button11)
+                    val logout = findViewById<Button>(R.id.admin_logout)
 
                     create.setOnClickListener(){
                         val intent = Intent(this, Admin_Create::class.java)
@@ -38,16 +40,19 @@ class Admin_Home : ComponentActivity() {
                     }
 
                     change.setOnClickListener(){
-                        val intent = Intent(this,Admin_Change::class.java)
+                        val intent = Intent(this, Admin_Change::class.java)
                         startActivity(intent)
                     }
 
-                    suspend.setOnClickListener(){
+                    delete.setOnClickListener() {
                         val intent = Intent(this, AdminSuspend::class.java)
                         startActivity(intent)
                     }
 
-
+                    logout.setOnClickListener(){
+                        val intent = Intent(this, MainActivity::class.java)
+                        startActivity(intent)
+                    }
                 }
             }
         }

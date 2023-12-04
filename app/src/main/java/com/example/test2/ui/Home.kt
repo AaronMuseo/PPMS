@@ -22,7 +22,7 @@ class Home : ComponentActivity() {
 
         setContent {
             Test2Theme {
-                // A surface container using the 'background' color from the theme
+
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
@@ -43,7 +43,7 @@ class Home : ComponentActivity() {
                         editor.putBoolean("isLoggedIn", false)
                         editor.apply()
 
-                        // Navigate the user back to the login screen (replace LoginActivity::class.java with the appropriate login activity)
+
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
 
@@ -68,7 +68,6 @@ class Home : ComponentActivity() {
                                 startActivity(intent)
                     }
 
-                    // when the meter number that is associated with the customer id is entered the meter number is checked against the database and if it matches it displays the meter information
 
                 }
             }

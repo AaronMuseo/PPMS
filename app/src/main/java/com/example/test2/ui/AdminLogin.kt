@@ -24,7 +24,7 @@ class AdminLogin : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             Test2Theme {
-                // A surface container using the 'background' color from the theme
+
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
@@ -43,13 +43,13 @@ class AdminLogin : ComponentActivity() {
                         val username = usr.text.toString()
                         val password = pwd.text.toString()
 
-                        val localDatabase = LocalDatabase(this) // Create an instance of your Java LocalDatabase class
+                        val localDatabase = LocalDatabase(this)
 
                         val loginSuccessful = localDatabase.loginAdmin(username, password)
 
                         if (loginSuccessful) {
                             Toast.makeText(this, "Admin Login Successful", Toast.LENGTH_SHORT).show()
-                            val intent = Intent(this, Admin_Create::class.java) // Replace Admin_Create with your Admin activity
+                            val intent = Intent(this, AdminHome::class.java)
                             startActivity(intent)
                         } else {
                             Toast.makeText(this, "Invalid Admin Credentials", Toast.LENGTH_SHORT).show()

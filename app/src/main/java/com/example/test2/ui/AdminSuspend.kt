@@ -23,7 +23,7 @@ class AdminSuspend : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             Test2Theme {
-                // A surface container using the 'background' color from the theme
+
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
@@ -50,7 +50,7 @@ class AdminSuspend : ComponentActivity() {
                     }
 
                     home.setOnClickListener {
-                        val intent = Intent(this, Admin_Home::class.java)
+                        val intent = Intent(this, AdminHome::class.java)
                         startActivity(intent)
 
                     }

@@ -20,7 +20,7 @@ class Purchase: ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             Test2Theme {
-                // A surface container using the 'background' color from the theme
+
                 Surface(color = MaterialTheme.colorScheme.background) {
 
                     setContentView(R.layout.purchase_activity)
